@@ -1,9 +1,8 @@
-﻿using AutoMapper;
-using Seshat.Application.Common.Behaviours;
+﻿using System.Reflection;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using System.Reflection;
+using Seshat.Application.Common.Behaviours;
 using Seshat.Application.Manufacturers.Services;
 using Seshat.Application.Printers.Services;
 

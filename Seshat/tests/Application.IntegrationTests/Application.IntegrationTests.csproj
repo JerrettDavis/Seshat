@@ -10,7 +10,8 @@
         <LangVersion>default</LangVersion>
 
         <Nullable>enable</Nullable>
-    </PropertyGroup>
+      <UserSecretsId>2d43d2f5-3636-41bc-adbd-30e68c5986e6</UserSecretsId>
+  </PropertyGroup>
 
     <ItemGroup>
         <None Remove="appsettings.json" />
@@ -35,6 +36,9 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\..\..\Scenario\src\Scenario.EFCore\Scenario.EFCore.csproj" />
+        <ProjectReference Include="..\..\..\Scenario\src\Scenario.Moq\Scenario.Moq.csproj" />
+        <ProjectReference Include="..\..\..\Scenario\src\Scenario\Scenario.csproj" />
         <ProjectReference Include="..\..\src\WebUI\WebUI.csproj" />
     </ItemGroup>
 

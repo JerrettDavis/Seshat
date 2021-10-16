@@ -5,9 +5,11 @@ using Seshat.Domain.Common;
 namespace Seshat.Domain.Entities
 {
     [PublicAPI]
-    public class Manufacturer : PersistentEntity, IPublicEntity
+    public class Manufacturer : PersistentEntity, IPublicEntity, IHasDomainEvent
     {
+#pragma warning disable CS0649
         private int _id;
+#pragma warning restore CS0649
 
         public Manufacturer(string name)
         {
@@ -29,8 +31,7 @@ namespace Seshat.Domain.Entities
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != GetType()) return false;
-            return Equals((Manufacturer) obj);
+            return obj.GetType() == GetType() && Equals((Manufacturer) obj);
         }
 
         public override int GetHashCode()
@@ -38,5 +39,8 @@ namespace Seshat.Domain.Entities
             // ReSharper disable once NonReadonlyMemberInGetHashCode
             return _id;
         }
+        
+        public bool IsEntity(string publicIdentifier) => PublicIdentifier.Equals(publicIdentifier);
+        public List<DomainEvent> DomainEvents { get; set; } = new();
     }
 }

@@ -1,8 +1,7 @@
-﻿using Seshat.Domain.Exceptions;
-using Seshat.Domain.ValueObjects;
-using FluentAssertions;
+﻿using FluentAssertions;
 using NUnit.Framework;
-using Seshat.Domain.Common;
+using Seshat.Domain.Exceptions;
+using Seshat.Domain.ValueObjects;
 
 namespace Seshat.Domain.UnitTests.ValueObjects
 {
@@ -26,19 +25,18 @@ namespace Seshat.Domain.UnitTests.ValueObjects
             colour.ToString().Should().Be(colour.Code);
         }
 
-        // I think this should be passing, but it isn't, and I really need to figure out why
-        // [Test]
-        // public void ShouldPerformImplicitConversionToColourCodeString()
-        // {
-        //     var code = Colour.White;
-        //     
-        //     code.Should().Be("#FFFFFF");
-        // }
+        [Test]
+        public void ShouldPerformImplicitConversionToColourCodeString()
+        {
+            string code = Colour.White;
+
+            code.Should().Be("#FFFFFF");
+        }
 
         [Test]
         public void ShouldPerformExplicitConversionGivenSupportedColourCode()
         {
-            var colour = (Colour) "#FFFFFF";
+            var colour = (Colour)"#FFFFFF";
 
             colour.Should().Be(Colour.White);
         }

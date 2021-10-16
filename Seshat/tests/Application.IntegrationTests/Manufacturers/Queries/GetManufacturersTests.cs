@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
 using NUnit.Framework;
+using Seshat.Application.IntegrationTests.Scenarios;
 using Seshat.Application.Manufacturers.Commands.CreateManufacturer;
 using Seshat.Application.Manufacturers.Models;
 using Seshat.Application.Manufacturers.Queries.GetManufacturers;
@@ -16,8 +17,10 @@ namespace Seshat.Application.IntegrationTests.Manufacturers.Queries
         public async Task ShouldGetList()
         {
             // Arrange
+            var scenario = await GetScenarioBuilder()
+                .BuildAsync();
             Func<Task<ManufacturerDto>> createManufacturer = 
-                async () => await SendAsync(
+                async () => await scenario.SendAsync(
                 new CreateManufacturerCommand(
                     new ManufacturerInputModel
                     {
@@ -30,7 +33,7 @@ namespace Seshat.Application.IntegrationTests.Manufacturers.Queries
             var command = new GetManufacturersQuery();
             
             // Act
-            var result = (await SendAsync(command)).ToList();
+            var result = (await scenario.SendAsync(command)).ToList();
             
             // Assert
             result.Should().NotBeNullOrEmpty();

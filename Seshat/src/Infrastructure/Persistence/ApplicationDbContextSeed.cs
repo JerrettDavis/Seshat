@@ -1,9 +1,7 @@
-﻿using Seshat.Domain.Entities;
-using Seshat.Domain.ValueObjects;
-using Seshat.Infrastructure.Identity;
-using Microsoft.AspNetCore.Identity;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using Seshat.Infrastructure.Identity;
 
 namespace Seshat.Infrastructure.Persistence
 {
@@ -20,38 +18,12 @@ namespace Seshat.Infrastructure.Persistence
             }
 
             var administrator = new ApplicationUser
-                {UserName = "administrator@localhost", Email = "administrator@localhost"};
+                { UserName = "administrator@localhost", Email = "administrator@localhost" };
 
             if (userManager.Users.All(u => u.UserName != administrator.UserName))
             {
                 await userManager.CreateAsync(administrator, "Administrator1!");
-                await userManager.AddToRolesAsync(administrator, new[] {administratorRole.Name});
-            }
-        }
-
-        public static async Task SeedSampleDataAsync(ApplicationDbContext context)
-        {
-            // Seed, if necessary
-            if (!context.TodoLists.Any())
-            {
-                context.TodoLists.Add(new TodoList
-                {
-                    Title = "Shopping",
-                    Colour = Colour.Blue,
-                    Items =
-                    {
-                        new TodoItem {Title = "Apples", Done = true},
-                        new TodoItem {Title = "Milk", Done = true},
-                        new TodoItem {Title = "Bread", Done = true},
-                        new TodoItem {Title = "Toilet paper"},
-                        new TodoItem {Title = "Pasta"},
-                        new TodoItem {Title = "Tissues"},
-                        new TodoItem {Title = "Tuna"},
-                        new TodoItem {Title = "Water"}
-                    }
-                });
-
-                await context.SaveChangesAsync();
+                await userManager.AddToRolesAsync(administrator, new[] { administratorRole.Name });
             }
         }
     }

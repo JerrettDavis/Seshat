@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using NUnit.Framework;
 using Seshat.Application.Common.Exceptions;
-using Seshat.Application.Manufacturers.Commands.CreateManufacturer;
+using Seshat.Application.IntegrationTests.Scenarios;
 using Seshat.Application.Manufacturers.Models;
 using Seshat.Application.Printers.Commands.CreatePrinter;
 using Seshat.Application.Printers.Models;
@@ -19,24 +19,26 @@ namespace Seshat.Application.IntegrationTests.Printers.Commands
         public async Task ShouldRequireMinimumFields()
         {
             // Arrange
+            var scenario = await GetScenarioBuilder()
+                .BuildAsync();
             var command = new CreatePrinterCommand(new PrinterInputModel());
             
             // Act & Assert
-            await FluentActions.Invoking(() => SendAsync(command))
+            await FluentActions.Invoking(() => scenario.SendAsync(command))
                 .Should().ThrowAsync<ValidationException>();
         }
         
         [Test]
-        public async Task ShouldCreateManufacturer()
+        public async Task ShouldCreatePrinter()
         {
             // Arrange
-            var userId = await RunAsDefaultUserAsync();
-            var manufacturer = await SendAsync(
-                new CreateManufacturerCommand(
-                    new ManufacturerInputModel
-                    {
-                        Name = Guid.NewGuid().ToString()
-                    }));
+            ManufacturerDto manufacturer = null!;
+            string userId = null!;
+            var scenario = await GetScenarioBuilder()
+                .RunAsDefaultUser(id => userId = id)
+                .AddManufacturer(r => manufacturer = r)
+                .BuildAsync();
+            
             var command = new CreatePrinterCommand(
                 new PrinterInputModel
                 {
@@ -45,8 +47,8 @@ namespace Seshat.Application.IntegrationTests.Printers.Commands
                 });
             
             // Act
-            var result = await SendAsync(command);
-            var item = await GetPublicEntity<Printer>(result.Id);
+            var result = await scenario.SendAsync(command);
+            var item = await scenario.GetPublicEntity<Printer>(result.Id);
             
             // Assert
             result.Should().NotBeNull();
@@ -67,12 +69,11 @@ namespace Seshat.Application.IntegrationTests.Printers.Commands
         public async Task ShouldRequireUniqueName()
         {
             // Arrange
-            var manufacturer = await SendAsync(
-                new CreateManufacturerCommand(
-                    new ManufacturerInputModel
-                    {
-                        Name = Guid.NewGuid().ToString()
-                    }));
+            ManufacturerDto manufacturer = null!;
+            var scenario = await GetScenarioBuilder()
+                .RunAsDefaultUser()
+                .AddManufacturer(r => manufacturer = r)
+                .BuildAsync();
             var command = new CreatePrinterCommand(
                 new PrinterInputModel
                 {
@@ -81,12 +82,12 @@ namespace Seshat.Application.IntegrationTests.Printers.Commands
                 });
             
             // Create the first printer 
-            await SendAsync(command);
+            await scenario.SendAsync(command);
 
             
             // Act & Assert
             // Then we try to create another with the same name
-            await FluentActions.Invoking(() => SendAsync(command))
+            await FluentActions.Invoking(() => scenario.SendAsync(command))
                 .Should().ThrowAsync<ValidationException>();
         }
     }

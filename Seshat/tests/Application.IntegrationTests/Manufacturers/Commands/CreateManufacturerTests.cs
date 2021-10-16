@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using NUnit.Framework;
 using Seshat.Application.Common.Exceptions;
+using Seshat.Application.IntegrationTests.Scenarios;
 using Seshat.Application.Manufacturers.Commands.CreateManufacturer;
 using Seshat.Application.Manufacturers.Models;
 using Seshat.Domain.Entities;
@@ -17,10 +18,12 @@ namespace Seshat.Application.IntegrationTests.Manufacturers.Commands
         public async Task ShouldRequireMinimumFields()
         {
             // Arrange
+            var scenario = await GetScenarioBuilder()
+                .BuildAsync();
             var command = new CreateManufacturerCommand(new ManufacturerInputModel());
             
             // Act & Assert
-            await FluentActions.Invoking(() => SendAsync(command))
+            await FluentActions.Invoking(() => scenario.SendAsync(command))
                 .Should().ThrowAsync<ValidationException>();
         }
 
@@ -28,7 +31,10 @@ namespace Seshat.Application.IntegrationTests.Manufacturers.Commands
         public async Task ShouldCreateManufacturer()
         {
             // Arrange
-            var userId = await RunAsDefaultUserAsync();
+            string userId = null!;
+            var scenario = await GetScenarioBuilder()
+                .RunAsDefaultUser(id => userId = id)
+                .BuildAsync();
             var command = new CreateManufacturerCommand(
                 new ManufacturerInputModel
                 {
@@ -36,8 +42,8 @@ namespace Seshat.Application.IntegrationTests.Manufacturers.Commands
                 });
             
             // Act
-            var result = await SendAsync(command);
-            var item = await GetPublicEntity<Manufacturer>(result.Id);
+            var result = await scenario.SendAsync(command);
+            var item = await scenario.GetPublicEntity<Manufacturer>(result.Id);
             
             // Assert
             result.Should().NotBeNull();
@@ -46,7 +52,7 @@ namespace Seshat.Application.IntegrationTests.Manufacturers.Commands
 
             item.Name.Should().Be(command.Model.Name);
             item.PublicIdentifier.Should().Be(result.Id);
-            item.CreatedBy.Should().Be(userId);
+            item.CreatedBy.Should().Be(userId); 
             item.Created.Should().BeCloseTo(DateTime.Now, TimeSpan.FromSeconds(10));
             item.LastModified.Should().BeNull();
             item.LastModifiedBy.Should().BeNull();
@@ -56,18 +62,20 @@ namespace Seshat.Application.IntegrationTests.Manufacturers.Commands
         public async Task ShouldRequireUniqueName()
         {
             // Arrange
+            var scenario = await GetScenarioBuilder()
+                .BuildAsync();
             var command = new CreateManufacturerCommand(
                 new ManufacturerInputModel
                 {
                     Name = Guid.NewGuid().ToString()
                 });
             // Create the first manufacturer 
-            await SendAsync(command);
+            await scenario.SendAsync(command);
 
             
             // Act & Assert
             // Then we try to create another with the same name
-            await FluentActions.Invoking(() => SendAsync(command))
+            await FluentActions.Invoking(() => scenario.SendAsync(command))
                 .Should().ThrowAsync<ValidationException>();
         }
     }

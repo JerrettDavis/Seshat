@@ -1,10 +1,11 @@
-﻿using AutoMapper;
-using Seshat.Application.Common.Mappings;
-using Seshat.Application.TodoLists.Queries.GetTodos;
-using Seshat.Domain.Entities;
-using NUnit.Framework;
-using System;
+﻿using System;
 using System.Runtime.Serialization;
+using AutoMapper;
+using NUnit.Framework;
+using Seshat.Application.Common.Mappings;
+using Seshat.Application.Manufacturers.Models;
+using Seshat.Application.Printers.Models;
+using Seshat.Domain.Entities;
 
 namespace Seshat.Application.UnitTests.Common.Mappings
 {
@@ -27,8 +28,8 @@ namespace Seshat.Application.UnitTests.Common.Mappings
         }
 
         [Test]
-        [TestCase(typeof(TodoList), typeof(TodoListDto))]
-        [TestCase(typeof(TodoItem), typeof(TodoItemDto))]
+        [TestCase(typeof(Manufacturer), typeof(ManufacturerDto))]
+        [TestCase(typeof(Printer), typeof(PrinterDto))]
         public void ShouldSupportMappingFromSourceToDestination(Type source, Type destination)
         {
             var instance = GetInstanceOf(source);

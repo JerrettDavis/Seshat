@@ -34,12 +34,23 @@ namespace Seshat.Infrastructure.Persistence
         public DbSet<Manufacturer> Manufacturers { get; set; } = null!;
         public DbSet<Printer> Printers { get; set; } = null!;
 
-        public DbSet<TodoItem> TodoItems { get; set; } = null!;
-
-        public DbSet<TodoList> TodoLists { get; set; } = null!;
+        public DbSet<User> UserRecords { get; set; } = null!;
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new())
         {
+            await HandleUserAdd();
+            SetAuditableEntities();
+            
+            var result = await base.SaveChangesAsync(cancellationToken);
+
+            await DispatchEvents();
+
+            return result;
+        }
+
+        private void SetAuditableEntities()
+        {
+            
             foreach (var entry in ChangeTracker.Entries<AuditableEntity>())
             {
                 switch (entry.State)
@@ -48,19 +59,22 @@ namespace Seshat.Infrastructure.Persistence
                         entry.Entity.CreatedBy = _currentUserService.UserId;
                         entry.Entity.Created = _dateTime.Now;
                         break;
-
                     case EntityState.Modified:
                         entry.Entity.LastModifiedBy = _currentUserService.UserId;
                         entry.Entity.LastModified = _dateTime.Now;
                         break;
                 }
             }
+        }
+
+        private async Task HandleUserAdd()
+        {
+            var users = ChangeTracker.Entries<ApplicationUser>()
+                .Where(e => e.State == EntityState.Added)
+                .ToList()
+                .Select(e => new User(e.Entity.Id));
             
-            var result = await base.SaveChangesAsync(cancellationToken);
-
-            await DispatchEvents();
-
-            return result;
+            await AddRangeAsync(users);
         }
 
         protected override void OnModelCreating(ModelBuilder builder)

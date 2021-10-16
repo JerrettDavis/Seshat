@@ -14,7 +14,6 @@ namespace Seshat.Application.Manufacturers.Queries.GetManufacturers
 {
     public class GetManufacturersQuery : IRequest<IEnumerable<ManufacturerDto>>
     {
-        
     }
 
     [UsedImplicitly]

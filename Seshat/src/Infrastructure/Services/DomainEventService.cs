@@ -30,7 +30,7 @@ namespace Seshat.Infrastructure.Services
             await _mediator.Publish(GetNotificationCorrespondingToDomainEvent(domainEvent));
         }
 
-        private INotification GetNotificationCorrespondingToDomainEvent(
+        private static INotification GetNotificationCorrespondingToDomainEvent(
             DomainEvent domainEvent)
         {
             return (INotification) Activator.CreateInstance(

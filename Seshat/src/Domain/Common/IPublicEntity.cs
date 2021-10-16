@@ -2,6 +2,7 @@
 {
     public interface IPublicEntity
     {
-        public string PublicIdentifier { get; }
+        string PublicIdentifier { get; }
+        bool IsEntity(string publicIdentifier) => PublicIdentifier.Equals(publicIdentifier);
     }
 }

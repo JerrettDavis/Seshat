@@ -1,24 +1,26 @@
-﻿using Seshat.Application.Common.Behaviours;
-using Seshat.Application.Common.Interfaces;
-using Seshat.Application.TodoItems.Commands.CreateTodoItem;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
-using System.Threading;
-using System.Threading.Tasks;
+using Seshat.Application.Common.Behaviours;
+using Seshat.Application.Common.Interfaces;
+using Seshat.Application.Manufacturers.Commands.CreateManufacturer;
+using Seshat.Application.Manufacturers.Models;
 
 namespace Seshat.Application.UnitTests.Common.Behaviours
 {
     public class RequestLoggerTests
     {
-        private readonly Mock<ILogger<CreateTodoItemCommand>> _logger;
+        private readonly Mock<ILogger<CreateManufacturerCommand>> _logger;
         private readonly Mock<ICurrentUserService> _currentUserService;
         private readonly Mock<IIdentityService> _identityService;
 
 
         public RequestLoggerTests()
         {
-            _logger = new Mock<ILogger<CreateTodoItemCommand>>();
+            _logger = new Mock<ILogger<CreateManufacturerCommand>>();
 
             _currentUserService = new Mock<ICurrentUserService>();
 
@@ -30,13 +32,14 @@ namespace Seshat.Application.UnitTests.Common.Behaviours
         {
             _currentUserService.Setup(x => x.UserId).Returns("Administrator");
 
-            var requestLogger = new LoggingBehaviour<CreateTodoItemCommand>(
+            var requestLogger = new LoggingBehaviour<CreateManufacturerCommand>(
                 _logger.Object, 
                 _currentUserService.Object,
                 _identityService.Object);
 
             await requestLogger.Process(
-                new CreateTodoItemCommand {ListId = 1, Title = "title"},
+                new CreateManufacturerCommand(
+                    new ManufacturerInputModel { Name = Guid.NewGuid().ToString()}),
                 new CancellationToken());
 
             _identityService.Verify(i => 
@@ -46,13 +49,14 @@ namespace Seshat.Application.UnitTests.Common.Behaviours
         [Test]
         public async Task ShouldNotCallGetUserNameAsyncOnceIfUnauthenticated()
         {
-            var requestLogger = new LoggingBehaviour<CreateTodoItemCommand>(
+            var requestLogger = new LoggingBehaviour<CreateManufacturerCommand>(
                 _logger.Object, 
                 _currentUserService.Object,
                 _identityService.Object);
 
             await requestLogger.Process(
-                new CreateTodoItemCommand {ListId = 1, Title = "title"},
+                new CreateManufacturerCommand(
+                    new ManufacturerInputModel { Name = Guid.NewGuid().ToString()}),
                 new CancellationToken());
 
             _identityService.Verify(i => i.GetUserNameAsync(null), Times.Never);

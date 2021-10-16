@@ -7,11 +7,9 @@ namespace Seshat.Application.Common.Interfaces
 {
     public interface IApplicationDbContext
     {
-        DbSet<TodoList> TodoLists { get; set; }
-
-        DbSet<TodoItem> TodoItems { get; set; }
         DbSet<Manufacturer> Manufacturers { get; set; }
         DbSet<Printer> Printers { get; set; }
+        DbSet<User> UserRecords { get; set; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }

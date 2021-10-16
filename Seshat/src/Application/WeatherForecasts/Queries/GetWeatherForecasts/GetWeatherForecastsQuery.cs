@@ -11,15 +11,16 @@ namespace Seshat.Application.WeatherForecasts.Queries.GetWeatherForecasts
     {
     }
 
-    public class
-        GetWeatherForecastsQueryHandler : IRequestHandler<GetWeatherForecastsQuery, IEnumerable<WeatherForecast>>
+    public class GetWeatherForecastsQueryHandler : 
+        IRequestHandler<GetWeatherForecastsQuery, IEnumerable<WeatherForecast>>
     {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+        private static readonly string[] Summaries = {
+            "Freezing", "Bracing", "Chilly", "Cool", "Mild", 
+            "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
-        public Task<IEnumerable<WeatherForecast>> Handle(GetWeatherForecastsQuery request,
+        public Task<IEnumerable<WeatherForecast>> Handle(
+            GetWeatherForecastsQuery request,
             CancellationToken cancellationToken)
         {
             var rng = new Random();

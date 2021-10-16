@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using System.Threading.Tasks;
 
 namespace Seshat.Application.IntegrationTests
 {
@@ -8,9 +7,9 @@ namespace Seshat.Application.IntegrationTests
     public class TestBase
     {
         [SetUp]
-        public async Task TestSetUp()
+        public void TestSetUp()
         {
-            await ResetState();
+            ResetState();
         }
     }
 }

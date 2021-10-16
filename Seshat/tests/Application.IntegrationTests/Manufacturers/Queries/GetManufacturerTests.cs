@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using NUnit.Framework;
 using Seshat.Application.Common.Exceptions;
+using Seshat.Application.IntegrationTests.Scenarios;
 using Seshat.Application.Manufacturers.Commands.CreateManufacturer;
 using Seshat.Application.Manufacturers.Models;
 using Seshat.Application.Manufacturers.Queries.GetManufacturer;
@@ -16,7 +17,9 @@ namespace Seshat.Application.IntegrationTests.Manufacturers.Queries
         public async Task ShouldGetManufacturer()
         {
             // Arrange
-            var manufacturer = await SendAsync(new CreateManufacturerCommand(
+            var scenario = await GetScenarioBuilder()
+                .BuildAsync();
+            var manufacturer = await scenario.SendAsync(new CreateManufacturerCommand(
                 new ManufacturerInputModel
                 {
                     Name = Guid.NewGuid().ToString()
@@ -24,7 +27,7 @@ namespace Seshat.Application.IntegrationTests.Manufacturers.Queries
             var query = new GetManufacturerQuery(manufacturer.Id);
             
             // Act
-            var result = await SendAsync(query);
+            var result = await scenario.SendAsync(query);
 
             // Assert
             result.Should().NotBeNull();
@@ -36,10 +39,12 @@ namespace Seshat.Application.IntegrationTests.Manufacturers.Queries
         public async Task ShouldRequireMinimumFields()
         {
             // Arrange
+            var scenario = await GetScenarioBuilder()
+                .BuildAsync();
             var query = new GetManufacturerQuery("");
             
             // Act & Assert
-            await FluentActions.Invoking(() => SendAsync(query))
+            await FluentActions.Invoking(() => scenario.SendAsync(query))
                 .Should().ThrowAsync<ValidationException>();
         }
         
@@ -47,10 +52,12 @@ namespace Seshat.Application.IntegrationTests.Manufacturers.Queries
         public async Task ShouldRequireValidManufacturer()
         {
             // Arrange
+            var scenario = await GetScenarioBuilder()
+                .BuildAsync();
             var query = new GetManufacturerQuery(Guid.NewGuid().ToString());
             
             // Act & Assert
-            await FluentActions.Invoking(() => SendAsync(query))
+            await FluentActions.Invoking(() => scenario.SendAsync(query))
                 .Should().ThrowAsync<ValidationException>();
         }
     }

@@ -23,6 +23,10 @@
 
     <ItemGroup>
       <Folder Include="Printers\Queries" />
+      <Folder Include="UserPrinters\Commands\CreateUserPrinter" />
+      <Folder Include="UserPrinters\Models" />
+      <Folder Include="UserPrinters\Queries" />
+      <Folder Include="Users" />
     </ItemGroup>
 
 </Project>

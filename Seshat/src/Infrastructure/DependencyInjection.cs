@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Seshat.Application.Common.Interfaces;
-using Seshat.Infrastructure.Files;
 using Seshat.Infrastructure.Identity;
 using Seshat.Infrastructure.Persistence;
 using Seshat.Infrastructure.Services;
@@ -44,7 +43,6 @@ namespace Seshat.Infrastructure
 
             services.AddTransient<IDateTime, DateTimeService>();
             services.AddTransient<IIdentityService, IdentityService>();
-            services.AddTransient<ICsvFileBuilder, CsvFileBuilder>();
             services.AddSingleton<IUniqueIdGenerator, IdGeneratorService>();
 
             services.AddAuthentication()
