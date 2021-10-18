@@ -12,13 +12,23 @@
                  [(opened)]="navOpen"
     >
       <mat-nav-list class="nav-list">
-        <a mat-list-item [routerLink]="['/']" routerLinkActive="active">
+        <a mat-list-item
+           [routerLink]="['/']"
+           routerLinkActive="active"
+           [routerLinkActiveOptions]="{exact: true}">
           <mat-icon mat-list-icon>home</mat-icon>
           <div mat-line>Home</div>
         </a>
         <a mat-list-item [routerLink]="['/', 'Manufacturers']" routerLinkActive="active">
           <mat-icon mat-list-icon>search</mat-icon>
           <div mat-line>Browse Builds</div>
+        </a>
+        <a mat-list-item
+           [routerLink]="['/', 'users', 'printers']"
+           routerLinkActive="active"
+           [routerLinkActiveOptions]="{exact: true}">
+          <mat-icon mat-list-icon>print</mat-icon>
+          <div mat-line>My Printers</div>
         </a>
         <mat-divider></mat-divider>
         <a mat-list-item href="/Identity/Account/Login" routerLinkActive="active">

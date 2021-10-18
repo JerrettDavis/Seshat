@@ -5,6 +5,10 @@ export const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./modules/home/home.module').then(m => m.HomeModule)
+  },
+  {
+    path: 'users/printers',
+    loadChildren: () => import('./modules/user-printers/user-printers.module').then(m => m.UserPrintersModule)
   }
 ];
 

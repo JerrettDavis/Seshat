@@ -9,7 +9,7 @@ import {NavbarModule} from "./shared/layout/navbar/navbar.component";
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
-import {MatButtonModule} from '@angular/material/button/button-module';
+import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
