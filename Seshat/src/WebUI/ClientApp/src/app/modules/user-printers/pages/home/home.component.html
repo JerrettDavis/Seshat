@@ -1,14 +1,3 @@
-<div class="empty-state">
-  <mat-icon color="accent">widgets</mat-icon>
-  <h1>You don't have any printers</h1>
-  <div class="description">
-    Add a new printer and it will show up here.
-  </div>
+<div class="h-100" [@routeAnimations]="prepareRoute(outlet)">
+  <router-outlet #outlet="outlet"></router-outlet>
 </div>
-
-<button
-  mat-fab class="add-button"
-  [routerLink]="['/', 'users', 'printers', 'create']"
->
-  <mat-icon>add</mat-icon>
-</button>

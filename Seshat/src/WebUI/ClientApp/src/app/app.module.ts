@@ -16,15 +16,16 @@ import {MatIconModule} from '@angular/material/icon';
   declarations: [AppComponent],
   imports: [
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
-    HttpClientModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
-    NavbarModule,
+    HttpClientModule,
+
+    AppRoutingModule,
     MatToolbarModule,
-    MatSidenavModule,
-    MatListModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatListModule,
+    MatSidenavModule,
+    NavbarModule
   ],
   providers: [
 
