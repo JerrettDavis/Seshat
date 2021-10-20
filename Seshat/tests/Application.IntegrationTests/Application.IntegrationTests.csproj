@@ -33,12 +33,12 @@
         <PackageReference Include="FluentAssertions" Version="6.1.0" />
         <PackageReference Include="Moq" Version="4.16.1" />
         <PackageReference Include="Respawn" Version="4.0.0" />
+        <PackageReference Include="Scenario" Version="0.1.1" />
+        <PackageReference Include="Scenario.EFCore" Version="0.1.1" />
+        <PackageReference Include="Scenario.Moq" Version="0.1.1" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\..\Scenario\src\Scenario.EFCore\Scenario.EFCore.csproj" />
-        <ProjectReference Include="..\..\..\Scenario\src\Scenario.Moq\Scenario.Moq.csproj" />
-        <ProjectReference Include="..\..\..\Scenario\src\Scenario\Scenario.csproj" />
         <ProjectReference Include="..\..\src\WebUI\WebUI.csproj" />
     </ItemGroup>
 
