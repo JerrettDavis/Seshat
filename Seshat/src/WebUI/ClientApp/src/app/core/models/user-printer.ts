@@ -2,6 +2,8 @@ import {Lazy} from '../data/lazy';
 import uniqid from 'uniqid';
 import {LazyUser} from '../data/lazy/lazy-user';
 import {IUser} from './user';
+import {Printer} from './printer';
+import {LazyPrinter} from '../data/lazy/lazy-printer';
 
 export class UserPrinter {
   get user(): Lazy<IUser> {
@@ -13,14 +15,31 @@ export class UserPrinter {
   }
 
   set userId(value: string) {
-    if (this._userId != value)
+    if (this._userId !== value)
       this._user = new LazyUser(value);
 
     this._userId = value;
   }
 
+  get printer(): Lazy<Printer> {
+    return this._printer;
+  }
+
+  get printerId(): string {
+    return this._printerId;
+  }
+
+  set printerId(value: string) {
+    if (this.printerId !== value)
+      this._printer = new LazyPrinter(value);
+
+    this._printerId = value;
+  }
+
   id: string;
 
+  private _printerId: string;
+  private _printer: Lazy<Printer> = new LazyPrinter();
   private _userId: string;
   private _user: Lazy<IUser> = new LazyUser();
 

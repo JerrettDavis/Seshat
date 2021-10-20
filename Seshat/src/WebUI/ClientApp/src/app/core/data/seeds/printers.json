@@ -1,0 +1,58 @@
+{
+  "printers": [
+    {
+      "id":"0000000000001",
+      "manufacturerId": "0000000000009",
+      "model": "Ender 2 Pro",
+      "verified": true
+    },
+    {
+      "id":"0000000000002",
+      "manufacturerId": "0000000000009",
+      "model": "Ender 3",
+      "verified": true
+    },
+    {
+      "id":"0000000000003",
+      "manufacturerId": "0000000000009",
+      "model": "Ender 3 Pro",
+      "verified": true
+    },
+    {
+      "id":"0000000000004",
+      "manufacturerId": "0000000000009",
+      "model": "Ender 3 Pro v2",
+      "verified": true
+    },
+    {
+      "id":"0000000000005",
+      "manufacturerId": "0000000000009",
+      "model": "Ender 3 Max",
+      "verified": true
+    },
+    {
+      "id":"0000000000006",
+      "manufacturerId": "0000000000009",
+      "model": "Ender 5 Plus",
+      "verified": true
+    },
+    {
+      "id":"0000000000007",
+      "manufacturerId": "0000000000009",
+      "model": "Ender 5 Pro",
+      "verified": true
+    },
+    {
+      "id":"0000000000008",
+      "manufacturerId": "0000000000009",
+      "model": "Ender 6",
+      "verified": true
+    },
+    {
+      "id":"0000000000008",
+      "manufacturerId": "0000000000009",
+      "model": "Ender 7",
+      "verified": true
+    }
+  ]
+}
