@@ -4,8 +4,8 @@ import {Manufacturer} from '../models/manufacturer';
 import {UserPrinter} from '../models/user-printer';
 import {IUser, User} from '../models/user';
 import {Printer} from '../models/printer';
-import * as manufacturers from './seeds/manufacturers.json';
-import * as printers from './seeds/printers.json';
+import manufacturers from './seeds/manufacturers.json';
+import printers from './seeds/printers.json';
 
 @Injectable({
   providedIn: 'root'
