@@ -28,4 +28,9 @@ export class Printer {
     this.id = uniqid();
   }
 
+  makeReady() {
+    this._manufacturer = new LazyManufacturer(this.id);
+    return this;
+  }
+
 }

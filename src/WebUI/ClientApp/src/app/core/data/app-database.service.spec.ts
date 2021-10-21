@@ -22,6 +22,17 @@ describe('AppDatabaseService', () => {
     expect(manufacturers.length).toBeGreaterThan(0);
     expect(printers).toBeTruthy();
     expect(printers.length).toBeGreaterThan(0)
+  });
+
+  it('should populate printer manufacturer', async () => {
+    const printer = (await service.printers.toCollection().first())
+      .makeReady();
+
+    await printer.manufacturer.load(service);
+
+    const manufactuer = printer.manufacturer;
+    expect(manufactuer.value).toBeTruthy();
+    expect(manufactuer.value.name).toBeTruthy();
   })
 
   afterEach(async () => {
