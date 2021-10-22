@@ -29,11 +29,11 @@ export class CreateUserPrinterComponent implements OnInit {
 
 @NgModule({
   imports: [
-    MatStepperModule,
-    ReactiveFormsModule,
+    MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatStepperModule,
+    ReactiveFormsModule
   ],
   declarations: [CreateUserPrinterComponent]
 })
