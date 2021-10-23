@@ -2,8 +2,9 @@ import {IManufacturer} from './manufacturer';
 import {Lazy} from '../data/lazy';
 import uniqid from 'uniqid';
 import {LazyManufacturer} from '../data/lazy/lazy-manufacturer';
+import {IEntity} from './ientity';
 
-export class Printer {
+export class Printer implements IEntity {
   get manufacturer(): Lazy<IManufacturer> {
     return this._manufacturer;
   }
@@ -23,6 +24,7 @@ export class Printer {
   private _manufacturer: Lazy<IManufacturer> = new LazyManufacturer();
   model: string;
   verified: boolean;
+  isSaved: boolean;
 
   constructor() {
     this.id = uniqid();
@@ -32,5 +34,6 @@ export class Printer {
     this._manufacturer = new LazyManufacturer(this.id);
     return this;
   }
+
 
 }

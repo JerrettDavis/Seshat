@@ -4,8 +4,9 @@ import {LazyUser} from '../data/lazy/lazy-user';
 import {IUser} from './user';
 import {Printer} from './printer';
 import {LazyPrinter} from '../data/lazy/lazy-printer';
+import {IEntity} from './ientity';
 
-export class UserPrinter {
+export class UserPrinter implements IEntity {
   get user(): Lazy<IUser> {
     return this._user;
   }
@@ -42,8 +43,10 @@ export class UserPrinter {
   private _printer: Lazy<Printer> = new LazyPrinter();
   private _userId: string;
   private _user: Lazy<IUser> = new LazyUser();
+  isSaved: boolean;
 
   constructor() {
     this.id = uniqid();
   }
+
 }
