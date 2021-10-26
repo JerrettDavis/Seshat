@@ -30,12 +30,12 @@ describe('AppDatabaseService', () => {
 
     await printer.manufacturer.load(service);
 
-    const manufactuer = printer.manufacturer;
-    expect(manufactuer.value).toBeTruthy();
-    expect(manufactuer.value.name).toBeTruthy();
+    const manufacturer = printer.manufacturer;
+    expect(manufacturer.value).toBeTruthy();
+    expect(manufacturer.value.name).toBeTruthy();
   })
 
   afterEach(async () => {
     await service.delete();
-  })
+  });
 });
