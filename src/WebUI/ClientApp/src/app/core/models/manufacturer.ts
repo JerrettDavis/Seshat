@@ -10,5 +10,5 @@ export class Manufacturer implements IManufacturer, IEntity{
   id: string;
   name: string;
   verified: boolean;
-  isSaved: boolean;
+  lastSynced?: Date;
 }

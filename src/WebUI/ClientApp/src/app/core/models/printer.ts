@@ -24,7 +24,7 @@ export class Printer implements IEntity {
   private _manufacturer: Lazy<IManufacturer> = new LazyManufacturer();
   model: string;
   verified: boolean;
-  isSaved: boolean;
+  lastSynced?: Date;
 
   constructor() {
     this.id = uniqid();

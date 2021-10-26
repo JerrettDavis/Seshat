@@ -5,7 +5,7 @@ export interface IUser {
   displayName: string;
 }
 
-export class User implements IUser{
+export class User implements IUser {
   displayName: string = 'Maker';
   id: number;
 

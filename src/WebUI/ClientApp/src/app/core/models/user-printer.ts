@@ -43,7 +43,7 @@ export class UserPrinter implements IEntity {
   private _printer: Lazy<Printer> = new LazyPrinter();
   private _userId: string;
   private _user: Lazy<IUser> = new LazyUser();
-  isSaved: boolean;
+  lastSynced?: Date;
 
   constructor() {
     this.id = uniqid();
