@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {AppDatabaseService} from '../data/app-database.service';
-import {defer, Observable, of} from 'rxjs';
+import {defer, Observable} from 'rxjs';
 import {Manufacturer} from '../models/manufacturer';
 import {ManufacturerInputModel} from '../models/manufacturer-input-model';
 
