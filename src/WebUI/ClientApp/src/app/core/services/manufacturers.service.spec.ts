@@ -23,7 +23,7 @@ describe('ManufacturersService', () => {
   });
 
   it('should add manufacturer', (done) => {
-    const input: ManufacturerInputModel = { name: 'Test Manufacturer' }
+    const input: ManufacturerInputModel = { name: 'Test Manufacturer' };
     service.create(input)
       .subscribe(manufacturer => {
         expect(manufacturer).toBeTruthy();
@@ -37,14 +37,15 @@ describe('ManufacturersService', () => {
   it('should get list', (done) => {
     service.getList().subscribe(list => {
       expect(list).toBeTruthy();
-      expect(list.length).toBeGreaterThan(0);
+      expect(list.items.length).toBeGreaterThan(0);
+      expect(list.pageIndex).toBe(1);
       done();
     });
   });
 
   it('should update manufacturer', (done) => {
-    const input1: ManufacturerInputModel = { name: 'Test Manufacturer' }
-    const input2: ManufacturerInputModel = { name: 'Test Manufacturer 2'}
+    const input1: ManufacturerInputModel = { name: 'Test Manufacturer' };
+    const input2: ManufacturerInputModel = { name: 'Test Manufacturer 2'};
     service.create(input1)
       .pipe(switchMap(man => service.update(man.id, input2 )))
       .subscribe(manufacturer => {
@@ -57,7 +58,7 @@ describe('ManufacturersService', () => {
   });
 
   it('should delete manufacturer', (done) => {
-    const input: ManufacturerInputModel = { name: 'Test Manufacturer' }
+    const input: ManufacturerInputModel = { name: 'Test Manufacturer' };
     service.create(input).pipe(
       switchMap((man) => service.delete(man.id).pipe(map(_ => man))),
       switchMap(man => service.get(man.id)))
@@ -65,5 +66,5 @@ describe('ManufacturersService', () => {
         expect(manufacturer).toBeFalsy();
         done();
       });
-  })
+  });
 });

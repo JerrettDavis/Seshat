@@ -9,6 +9,10 @@ export const routes: Routes = [
   {
     path: 'users/printers',
     loadChildren: () => import('./modules/user-printers/user-printers.module').then(m => m.UserPrintersModule)
+  },
+  {
+    path: 'manufacturers',
+    loadChildren: () => import('./modules/manufacturers/manufacturers.module').then(m => m.ManufacturersModule)
   }
 ];
 

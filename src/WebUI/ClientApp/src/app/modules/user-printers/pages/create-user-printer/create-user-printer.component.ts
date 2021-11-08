@@ -4,6 +4,8 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
+import {MatCardModule} from '@angular/material/card';
+import {ManufacturerVisualSelectorModule} from '../../../manufacturers/components/manufacturer-visual-selector/manufacturer-visual-selector.component';
 
 @Component({
   selector: 'app-create-user-printer',
@@ -33,7 +35,9 @@ export class CreateUserPrinterComponent implements OnInit {
     MatFormFieldModule,
     MatInputModule,
     MatStepperModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatCardModule,
+    ManufacturerVisualSelectorModule
   ],
   declarations: [CreateUserPrinterComponent]
 })

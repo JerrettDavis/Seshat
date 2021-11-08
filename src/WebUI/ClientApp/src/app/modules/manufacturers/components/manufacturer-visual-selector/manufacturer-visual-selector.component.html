@@ -1,0 +1,22 @@
+<mat-form-field appearance="fill">
+  <mat-label>Manufacturer Name</mat-label>
+  <mat-icon matPrefix>search</mat-icon>
+  <input matInput placeholder="Ex. Creality" [(ngModel)]="manufacturerName">
+  <button *ngIf="manufacturerName" matSuffix mat-icon-button aria-label="Clear" (click)="manufacturerName=''">
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-form-field>
+
+<div class="search-results">
+  <div class="manufacturer clickable mat-elevation-z0" *ngFor="let manufacturer of searchResults.items">
+    <div class="icon">
+      <mat-icon>printer</mat-icon>
+    </div>
+    {{manufacturer.name}}
+  </div>
+</div>
+<mat-divider></mat-divider>
+<div class="search-footer">
+  <span>Showing {{ searchResults.items.length }} of {{ searchResults.totalCount }} manufacturers. </span>
+  <div class="subtle">Trying narrowing down the results by entering {{ !manufacturerName ? 'some search terms' : 'more specific search terms' }}.</div>
+</div>

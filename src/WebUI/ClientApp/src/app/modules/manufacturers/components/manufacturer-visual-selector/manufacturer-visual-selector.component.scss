@@ -1,0 +1,38 @@
+.search-results {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 16px; /* row-gap column gap */
+  row-gap: 16px;
+  column-gap: 16px;
+
+  .manufacturer {
+    padding: 16px;
+    min-width: 150px;
+    white-space: nowrap;
+    text-align: center;
+    font-size: 1.2em;
+
+    &:hover {
+      transition: all 0.5s;
+      background-color: #eee;
+    }
+
+    .icon {
+      padding-bottom: 8px;
+      color: #999;
+      ::ng-deep .mat-icon {
+        font-size: 48px;
+        height: 48px;
+        width: 48px;
+      }
+    }
+  }
+}
+
+.search-footer {
+  margin-top: 16px;
+}
+.subtle {
+  font-weight: 300;
+}
